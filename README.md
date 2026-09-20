@@ -100,17 +100,72 @@ DDL — это команды DDL, которые создают, изменяю
 
 Создание таблицы сотрудников:
 
-```CREATE TABLE employees ( id INT PRIMARY KEY,  name VARCHAR(100) NOT NULL,  department VARCHAR(50),  hire_date DATE);```
+```
+CREATE TABLE employees (
+    id INT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    department VARCHAR(50),
+    hire_date DATE);
+```
 
 Добавление email:
 
-```ALTER TABLE employees ADD email VARCHAR(100);```
+```
+ALTER TABLE employees
+ADD email VARCHAR(100);
+```
 
 Удаление всей таблицы:
 
 ```DROP TABLE employees;```
 
 Важно: большинство СУБД автоматически фиксируют DDL-запросы. Откатить их через ROLLBACK нельзя.
+
+### DML (Data Manipulation Language) — язык манипуляции данными
+DML — это операторы DML, с помощью которых вы работаете с содержимым таблиц: добавляете новых сотрудников, меняете отделы, увольняете.
+
+Основные команды
+|Команда|Действие|
+|INSERT|Добавляет новую запись|
+|UPDATE|Изменяет существующую запись|
+|DELETE|Удаляет запись по условию|
+
+Примеры
+Добавление сотрудника:
+
+```
+INSERT INTO employees (id, name, department, hire_date)
+VALUES (1, 'Анна Петрова', 'Маркетинг', '2024-03-15');
+```
+
+Перевод в другой отдел:
+
+```
+UPDATE employees
+SET department = 'Продажи' WHERE name = 'Анна Петрова';
+```
+
+Удаление уволенных:
+
+```
+DELETE FROM employees
+WHERE department = 'Временные';
+```
+
+Не забывайте использовать ключевые слова WHERE в UPDATE или DELETE. Иначе изменения коснутся всех строк.
+
+DQL (Data Query Language) — язык запросов
+Многие считают SELECT частью DML, но лучше выделять DQL отдельно — ведь он не меняет данные, а только запрашивает их.
+Основная команда — SELECT
+```
+SELECT name, department
+FROM employees
+WHERE department = 'Продажи'
+ORDER BY name;
+```
+Этот запрос покажет всех сотрудников отдела «Продажи», отсортированных по имени.
+
+WHERE, GROUP BY, JOIN, ORDER BY — это части SELECT, а не отдельные команды. Важно помнить: DQL — это только SELECT.
 
 ## PostgreSQL
 
